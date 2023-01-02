@@ -4,6 +4,11 @@
     padding: 0;
 }
 
+body {
+    background-color: #eee;
+    color: #fff;
+}
+
 .main-container {
     height: 100vh;
     display: flex;
@@ -13,6 +18,7 @@
 
 .calculator {
     display: flex;
+    background-color: #333;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -25,9 +31,11 @@
 .display { 
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
     height: 100px;
     width: 300px;
     margin: 15px;
+    padding: 20px;
     border: 1px solid red;
     border-radius: 10px;
 }
@@ -40,4 +48,15 @@
     row-gap: 10px;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
+}
+
+button {
+    font-size: 1.5rem;
+    background-color: #bbb;
+    border-radius: 5px;
+    border: 1px solid #333;
+}
+
+div {
+    font-size: 1.5rem;
 }
