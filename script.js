@@ -1,45 +1,67 @@
-const add = (num1, num2) => {
-    return num1 + num2;
-}
-
-const subtract = (num1, num2) => {
-    return num1 - num2;
-}
-
-const multiply = (num1, num2) => {
-    return num1 * num2;
-}
-
-const divide = (num1, num2) => {
-    return num1 / num2;
-}
-
 const operate = (...args) => {
-    let num1 = parseInt(args[0])
+    let a = parseInt(args[0])
     let operator = args[1]
-    let num2 = parseInt(args[2])
-    if (operator == "+") {
-        return add(num1, num2);
-    } else if (operator == '-') {
-        return subtract(num1, num2);
-    } else if (operator == '*') {
-        return multiply(num1, num2);
-    } else if (operator == '/') {
-        return divide(num1, num2);
-    }
+    let b = parseInt(args[2])
+    switch (operator){
+        case "+": return a + b;
+        case "-": return a - b;
+        case "*": return a * b;
+        case "/": 
+            if (b == 0) {
+                console.log("Divide by 0 is not possible");
+                return "Bruh";
+            } else {
+                return a / b; 
+            }
+        default:
+          console.log("Unknown operator: " + operator);
+          return NaN;
+      }
 }
+
+const evaluate = (numsArray, opsArray) => {
+    if (opsArray.length + 1 != numsArray.length) {
+        console.log("Error: Array lengths mismatch");
+        return;
+    }
+
+    let resultSoFar = numsArray[0];
+    let index = 1;
+    let result = opsArray.reduce((total, currentValue) => {
+        return operate(total, currentValue, numsArray[index++])  
+    }, resultSoFar)
+    // console.log(result);
+    return result;
+}
+
+const getDigits = ((string) => {
+    return string.split(/[\+\-\/\*]/)
+})
 
 const inputField = document.querySelector('.input');
 const result = document.querySelector('.result')
 
 let inputs = [];
+let ops = [];
 
 function insertInput(e) {
-    inputs.push(e.target.textContent);
-    if (e.target.innerText == "=") {
+    if (e.target.textContent == "=") {
         // console.log(input.innerText.split(""))
-        result.textContent = operate(...inputs)
-    } else {
+        inputs = getDigits(inputField.textContent);
+        result.textContent = evaluate(inputs, ops)
+    } 
+    else if (isNaN(Number(e.target.textContent))){
+        if (e.target.innerText == 'C') {
+            inputs = []
+            ops = []
+            inputField.textContent = '';
+            result.textContent = '';
+        } else {
+            inputField.textContent += e.target.textContent;
+            ops.push(e.target.textContent);
+        }
+    }
+    else {
         inputField.textContent += e.target.textContent; 
     }
 }
