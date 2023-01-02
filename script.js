@@ -57,7 +57,7 @@ function insertInput(e) {
             inputField.textContent = '';
             result.textContent = '';
         } else {
-            inputField.textContent += e.target.textContent;
+            inputField.textContent += ' ' + e.target.textContent + ' ';
             ops.push(e.target.textContent);
         }
     }
